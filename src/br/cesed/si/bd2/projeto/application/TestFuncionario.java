@@ -28,15 +28,16 @@ public class TestFuncionario {
 		int op = 0;
 
 		System.out.println("*** PROJETO - SISTEMA LOJA DEPARTAMENTO ***");
-		System.out.println("|| Cadastro de funcionários ||");
+		System.out.println("|| Controle de funcionários ||");
 
 		do {
 
 			System.out.println("## Escolha uma das opções abaixo ##");
 			System.out.println("# (1) - Inserir Funcionário #");
 			System.out.println("# (2) - Listar Funcionários #");
-			System.out.println("# (3) - Alterar salário #");
-			System.out.println("# (4) - Alterar dados da Demissão #");
+			System.out.println("# (3) - Classificar Funcionários #");
+			System.out.println("# (4) - Alterar salário #");
+			System.out.println("# (5) - Alterar dados da Demissão #");
 			System.out.println("# (0) - SAIR #");
 
 			System.out.print("\nDigite a opção desejada: ");
@@ -54,6 +55,15 @@ public class TestFuncionario {
 				func.setSalario(Double.parseDouble(sc.nextLine()));
 				System.out.print("Digite a função do funcionário: ");
 				func.setFuncao(sc.nextLine());
+				System.out.print("Digite a data de Admissão (dd/mm/aaaa): ");
+				String dma = sc.nextLine();
+				String dateSplit[] = dma.split("/");
+				int dia = (Integer.parseInt(dateSplit[0]));
+				int mes = (Integer.parseInt(dateSplit[1]));
+				int ano = (Integer.parseInt(dateSplit[2]));
+				LocalDate localDate = LocalDate.of(ano, mes, dia);
+				Date dateConvert = Date.valueOf(localDate);
+				func.setDtAdmissao(dateConvert);
 
 				try (Connection conn = ConnectionManager.createConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
@@ -83,6 +93,13 @@ public class TestFuncionario {
 
 			} else if (op == 3) {
 
+				try (Connection conn = ConnectionManager.createConnection()) {
+					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
+					funcDAO.classificaFuncionario();
+				}
+
+			} else if (op == 4) {
+
 				System.out.print("Digite o CPF do funcionário: ");
 				func.setCpf(Integer.parseInt(sc.nextLine()));
 				System.out.print("Digite o salário do funcionário: ");
@@ -93,7 +110,7 @@ public class TestFuncionario {
 					funcDAO.updateSalario(func);
 				}
 
-			} else if (op == 4) {
+			} else if (op == 5) {
 
 				System.out.print("Digite o CPF do funcionário: ");
 				func.setCpf(Integer.parseInt(sc.nextLine()));

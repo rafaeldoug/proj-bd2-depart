@@ -15,6 +15,8 @@ public class Funcionario {
 	private String funcao;
 
 	private String classificacao;
+	
+	private Date dtAdmissao;
 
 	private Date dtDemissao;
 
@@ -67,6 +69,14 @@ public class Funcionario {
 	public void setClassificacao(String classificacao) {
 		this.classificacao = classificacao;
 	}
+	
+	public Date getDtAdmissao() {
+		return dtAdmissao;
+	}
+	
+	public void setDtAdmissao(Date dtAdmissao) {
+		this.dtAdmissao = dtAdmissao;
+	}
 
 	public Date getDtDemissao() {
 		return dtDemissao;
@@ -103,8 +113,8 @@ public class Funcionario {
 	@Override
 	public String toString() {
 		return "Matricula = " + matricula + " | CPF = " + cpf + "\nNome = " + nome + " | Funcao = " + checkAttrib(funcao)
-				+ " | Salario = " + (salario != null ? salario : "N/A") + " | Classificacao = " + checkAttrib(classificacao) + "\nData de Demissao = "
-				+ (dtDemissao != null ? dtDemissao : "N/A") + " | Motivo = " + checkAttrib(motivo) + "\n";
+				+ " | Salario = " + (salario != null ? salario : "N/A") + " | Classificacao = " + checkAttrib(classificacao) 
+				+ "\nData de Admissao = " + (dtAdmissao != null ? dtAdmissao : "N/A") + "\nData de Demissao = " + (dtDemissao != null ? dtDemissao : "N/A") + " | Motivo = " + checkAttrib(motivo) + "\n";
 	}
 
 }

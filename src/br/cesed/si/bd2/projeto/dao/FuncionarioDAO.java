@@ -19,7 +19,7 @@ public class FuncionarioDAO {
 
 	public void save(Funcionario funcionario) throws SQLException {
 
-		String sql = "INSERT INTO funcionario (matricula, cpf, nome, salario, funcao) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO funcionario (matricula, cpf, nome, salario, funcao, dt_admissao) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 
@@ -28,6 +28,7 @@ public class FuncionarioDAO {
 			pstm.setString(3, funcionario.getNome());
 			pstm.setDouble(4, funcionario.getSalario());
 			pstm.setString(5, funcionario.getFuncao());
+			pstm.setDate(6, funcionario.getDtAdmissao());
 
 			pstm.execute();
 
@@ -40,7 +41,7 @@ public class FuncionarioDAO {
 
 		List<Funcionario> listaFunc = new ArrayList<Funcionario>();
 
-		String sql = "SELECT matricula, cpf, nome, salario, funcao, classificacao, dt_demissao, motivo_demissao FROM funcionario ORDER BY matricula;";
+		String sql = "SELECT matricula, cpf, nome, salario, funcao, classificacao, dt_admissao, dt_demissao, motivo_demissao FROM funcionario ORDER BY matricula;";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
@@ -54,6 +55,7 @@ public class FuncionarioDAO {
 					f.setSalario(rs.getDouble("salario"));
 					f.setFuncao(rs.getString("funcao"));
 					f.setClassificacao(rs.getString("classificacao"));
+					f.setDtAdmissao(rs.getDate("dt_admissao"));
 					f.setDtDemissao(rs.getDate("dt_demissao"));
 					f.setMotivo(rs.getString("motivo_demissao"));
 
@@ -65,6 +67,18 @@ public class FuncionarioDAO {
 		return listaFunc;
 	}
 
+	public void classificaFuncionario() throws SQLException {
+
+		String sql = "SELECT classificaFunc();";
+
+		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+			pstm.execute();
+
+			System.out.println("Funcionários classificados com sucesso.");
+
+		}
+	}
+
 	public void updateSalario(Funcionario f) throws SQLException {
 
 		String sql = "UPDATE funcionario SET salario = ? WHERE cpf = ?";
@@ -74,7 +88,7 @@ public class FuncionarioDAO {
 			pstm.setInt(2, f.getCpf());
 
 			pstm.execute();
-			
+
 			System.out.println("Dados alterados com sucesso.");
 		}
 
@@ -90,7 +104,7 @@ public class FuncionarioDAO {
 			pstm.setInt(3, f.getCpf());
 
 			pstm.execute();
-			
+
 			System.out.println("Dados alterados com sucesso.");
 		}
 
