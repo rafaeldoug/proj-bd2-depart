@@ -32,12 +32,15 @@ public class TestFuncionario {
 
 		do {
 
+			System.out.println();
 			System.out.println("## Escolha uma das opções abaixo ##");
 			System.out.println("# (1) - Inserir Funcionário #");
 			System.out.println("# (2) - Listar Funcionários #");
-			System.out.println("# (3) - Classificar Funcionários #");
-			System.out.println("# (4) - Alterar salário #");
-			System.out.println("# (5) - Alterar dados da Demissão #");
+			System.out.println("# (3) - Buscar Funcionário por Nome #");
+			System.out.println("# (4) - Buscar Funcionário por Função #");
+			System.out.println("# (5) - Classificar Funcionários #");
+			System.out.println("# (6) - Alterar salário #");
+			System.out.println("# (7) - Alterar dados da Demissão #");
 			System.out.println("# (0) - SAIR #");
 
 			System.out.print("\nDigite a opção desejada: ");

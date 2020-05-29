@@ -32,7 +32,7 @@ public class FuncionarioDAO {
 
 			pstm.execute();
 
-			System.out.println("Funcionário adicionado com sucesso.\n");
+			System.out.println("\nFuncionário adicionado com sucesso.\n");
 
 		}
 	}
