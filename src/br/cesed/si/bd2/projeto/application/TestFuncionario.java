@@ -27,7 +27,7 @@ public class TestFuncionario {
 
 		int op = 0;
 
-		System.out.println("*** PROJETO - SISTEMA LOJA DEPARTAMENTO ***");
+		System.out.println("*** PROJETO BD2- SISTEMA LOJA DEPARTAMENTO ***");
 		System.out.println("|| Controle de funcionários ||");
 
 		do {
