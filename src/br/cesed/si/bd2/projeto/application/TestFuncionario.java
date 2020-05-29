@@ -122,7 +122,7 @@ public class TestFuncionario {
 
 				try (Connection conn = ConnectionManager.createConnection()) {
 					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
-					listaFuncionarios = funcDao.listByName(funcao);
+					listaFuncionarios = funcDao.listByFuncao(funcao);
 
 					if (listaFuncionarios.isEmpty()) {
 						System.out.println("Nenhum funcionário com esta função cadastrado.");

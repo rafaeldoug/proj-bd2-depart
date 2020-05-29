@@ -15,7 +15,7 @@ public class Funcionario {
 	private String funcao;
 
 	private String classificacao;
-	
+
 	private Date dtAdmissao;
 
 	private Date dtDemissao;
@@ -69,11 +69,11 @@ public class Funcionario {
 	public void setClassificacao(String classificacao) {
 		this.classificacao = classificacao;
 	}
-	
+
 	public Date getDtAdmissao() {
 		return dtAdmissao;
 	}
-	
+
 	public void setDtAdmissao(Date dtAdmissao) {
 		this.dtAdmissao = dtAdmissao;
 	}
@@ -93,28 +93,19 @@ public class Funcionario {
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
 	}
-	
-//	private String dateFormatter(Date date) {
-//
-//		if (date != null) {
-//			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyy");
-//			String formattedDate = dtf.format((TemporalAccessor) date);
-//			return formattedDate;
-//		}
-//
-//		return null;
-//	}
-	
+
 	private String checkAttrib(String data) {
-		String attrib = data != null ? data : "N/A"; 
+		String attrib = data != null ? data : "N/A";
 		return attrib;
 	}
 
 	@Override
 	public String toString() {
-		return "Matricula = " + matricula + " | CPF = " + cpf + "\nNome = " + nome + " | Funcao = " + checkAttrib(funcao)
-				+ " | Salario = " + (salario != null ? salario : "N/A") + " | Classificacao = " + checkAttrib(classificacao) 
-				+ "\nData de Admissao = " + (dtAdmissao != null ? dtAdmissao : "N/A") + "\nData de Demissao = " + (dtDemissao != null ? dtDemissao : "N/A") + " <-> Motivo = " + checkAttrib(motivo) + "\n";
+		return "Matricula = " + matricula + " | CPF = " + cpf + "\nNome = " + nome + " | Funcao = "
+				+ checkAttrib(funcao) + " | Salario = " + String.format("%.2f", (salario != null ? salario : "N/A"))
+				+ " | Classificacao = " + checkAttrib(classificacao) + "\nData de Admissao = "
+				+ (dtAdmissao != null ? dtAdmissao : "N/A") + "\nData de Demissao = "
+				+ (dtDemissao != null ? dtDemissao : "N/A") + " <-> Motivo = " + checkAttrib(motivo) + "\n";
 	}
 
 }
