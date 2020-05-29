@@ -77,7 +77,6 @@ public class TestSetor {
 				System.out.println("Lista de Setores por Nome");
 				System.out.print("Digite o nome do setor: ");
 				String nome = sc.nextLine();
-//				setor.setNome(sc.nextLine());
 				System.out.println();
 
 				try (Connection conn = ConnectionManager.createConnection()) {

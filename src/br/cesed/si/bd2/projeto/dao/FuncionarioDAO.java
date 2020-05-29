@@ -67,6 +67,37 @@ public class FuncionarioDAO {
 		return listaFunc;
 	}
 
+	public List<Funcionario> listByName(String nome) throws SQLException {
+
+		List<Funcionario> listFunc = new ArrayList<>();
+
+		String sql = "SELECT matricula, cpf, nome, salario, funcao, classificacao, dt_admissao, dt_demissao, motivo_demissao FROM funcionario WHERE nome LIKE '"
+				+ nome + "%'";
+
+		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+			pstm.execute();
+
+			try (ResultSet rs = pstm.getResultSet()) {
+				while (rs.next()) {
+					Funcionario f = new Funcionario();
+					f.setMatricula(rs.getInt("matricula"));
+					f.setCpf(rs.getInt("cpf"));
+					f.setNome(rs.getString("nome"));
+					f.setSalario(rs.getDouble("salario"));
+					f.setFuncao(rs.getString("funcao"));
+					f.setClassificacao(rs.getString("classificacao"));
+					f.setDtAdmissao(rs.getDate("dt_admissao"));
+					f.setDtDemissao(rs.getDate("dt_demissao"));
+					f.setMotivo(rs.getString("motivo_demissao"));
+
+					listFunc.add(f);
+				}
+			}
+		}
+
+		return listFunc;
+	}
+
 	public void classificaFuncionario() throws SQLException {
 
 		String sql = "SELECT classificaFunc();";

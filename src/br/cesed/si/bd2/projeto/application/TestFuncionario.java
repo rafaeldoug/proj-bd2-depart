@@ -93,15 +93,57 @@ public class TestFuncionario {
 					}
 
 				}
-
 			} else if (op == 3) {
+
+				System.out.print("Digite o nome do funcionário que deseja buscar: ");
+				String nome = sc.nextLine();
+				System.out.println();
+				
+				try (Connection conn = ConnectionManager.createConnection()) {
+					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
+					listaFuncionarios = funcDao.listByName(nome);
+
+					if (listaFuncionarios.isEmpty()) {
+						System.out.println("Nenhum funcionário com este nome cadastrado.");
+						System.out.println();
+					} else {
+
+						for (Funcionario f : listaFuncionarios) {
+							System.out.println(f);
+						}
+					}
+
+				}
+			} else if (op == 4) {
+
+				System.out.print("Digite a função do funcionário que deseja buscar: ");
+				String funcao = sc.nextLine();
+				System.out.println();
+
+				try (Connection conn = ConnectionManager.createConnection()) {
+					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
+					listaFuncionarios = funcDao.listByName(funcao);
+
+					if (listaFuncionarios.isEmpty()) {
+						System.out.println("Nenhum funcionário com esta função cadastrado.");
+						System.out.println();
+					} else {
+
+						for (Funcionario f : listaFuncionarios) {
+							System.out.println(f);
+						}
+					}
+
+				}
+
+			} else if (op == 5) {
 
 				try (Connection conn = ConnectionManager.createConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.classificaFuncionario();
 				}
 
-			} else if (op == 4) {
+			} else if (op == 6) {
 
 				System.out.print("Digite o CPF do funcionário: ");
 				func.setCpf(Integer.parseInt(sc.nextLine()));
@@ -113,7 +155,7 @@ public class TestFuncionario {
 					funcDAO.updateSalario(func);
 				}
 
-			} else if (op == 5) {
+			} else if (op == 7) {
 
 				System.out.print("Digite o CPF do funcionário: ");
 				func.setCpf(Integer.parseInt(sc.nextLine()));

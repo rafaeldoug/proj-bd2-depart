@@ -114,7 +114,7 @@ public class Funcionario {
 	public String toString() {
 		return "Matricula = " + matricula + " | CPF = " + cpf + "\nNome = " + nome + " | Funcao = " + checkAttrib(funcao)
 				+ " | Salario = " + (salario != null ? salario : "N/A") + " | Classificacao = " + checkAttrib(classificacao) 
-				+ "\nData de Admissao = " + (dtAdmissao != null ? dtAdmissao : "N/A") + "\nData de Demissao = " + (dtDemissao != null ? dtDemissao : "N/A") + " | Motivo = " + checkAttrib(motivo) + "\n";
+				+ "\nData de Admissao = " + (dtAdmissao != null ? dtAdmissao : "N/A") + "\nData de Demissao = " + (dtDemissao != null ? dtDemissao : "N/A") + " <-> Motivo = " + checkAttrib(motivo) + "\n";
 	}
 
 }
