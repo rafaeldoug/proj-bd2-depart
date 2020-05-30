@@ -136,7 +136,7 @@ public class FuncionarioDAO {
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
 
-			System.out.println("Funcionários classificados com sucesso.");
+			System.out.println("\nFuncionários classificados com sucesso.");
 
 		}
 	}
@@ -151,7 +151,7 @@ public class FuncionarioDAO {
 
 			pstm.execute();
 
-			System.out.println("Dados alterados com sucesso.");
+			System.out.println("\nDados alterados com sucesso.");
 		}
 
 	}
@@ -167,7 +167,7 @@ public class FuncionarioDAO {
 
 			pstm.execute();
 
-			System.out.println("Dados alterados com sucesso.");
+			System.out.println("\nDados alterados com sucesso.");
 		}
 
 	}

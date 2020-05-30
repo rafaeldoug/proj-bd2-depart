@@ -28,7 +28,7 @@ public class CaixaDAO {
 
 			pstm.execute();
 
-			System.out.println("Caixa adicionado com sucesso.");
+			System.out.println("\nCaixa adicionado com sucesso.");
 		}
 	}
 
@@ -66,7 +66,7 @@ public class CaixaDAO {
 
 			pstm.execute();
 
-			System.out.println("Caixa atualizado com sucesso.");
+			System.out.println("\nCaixa atualizado com sucesso.");
 		}
 
 	}

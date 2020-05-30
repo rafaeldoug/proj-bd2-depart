@@ -86,8 +86,8 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Cód. de Barras " + codBarra + "\nDescricao " + nome + " | Preço R$" + String.format("%.2f", preco)
-				+ "\n" + "Setor " + codSetor + " | Quantidade disponível " + quantidade + "\n" + "Validade "
+		return "Cód. de Barras " + codBarra + "\nDescricao: " + nome + " | Preço R$" + String.format("%.2f", preco)
+				+ "\n" + "Setor " + codSetor + " | Quantidade disponível: " + quantidade + "\n" + "Validade "
 				+ (validade != null ? validade : "N/A") + " | Garantia Loja "
 				+ (garantiaLoja == 0 ? "N/A" : garantiaLoja) + " | Garantia Fabricante "
 				+ (garantiaFabricante == 0 ? "N/A" : garantiaFabricante) + "\n";

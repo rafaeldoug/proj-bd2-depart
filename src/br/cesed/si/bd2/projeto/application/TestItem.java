@@ -33,8 +33,8 @@ public class TestItem {
 			System.out.println("## Escolha uma das opções abaixo ##");
 			System.out.println("# (1) - Inserir Item #");
 			System.out.println("# (2) - Listar Itens #");
-//			System.out.println("# (3) - Editar Caixa #");
-//			System.out.println("# (4) - Excluir Caixa #");
+			System.out.println("# (3) - Listar Itens por Descrição #");
+			System.out.println("# (4) - Listar Itens sem Estoque #");
 			System.out.println("# (0) - SAIR #");
 
 			System.out.print("\nDigite a opção desejada: ");
@@ -42,7 +42,7 @@ public class TestItem {
 
 			if (op == 1) {
 
-				System.out.println("Qual o tipo de Item?");
+				System.out.println("Seleciona o tipo de Item:");
 				System.out.println("(1) - Geral");
 				System.out.println("(2) - EE/ED");
 				System.out.print("\nDigite a opção desejada: ");
@@ -56,15 +56,6 @@ public class TestItem {
 					item.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite o preço: ");
 					item.setPreco(Double.parseDouble(sc.nextLine()));
-//					System.out.print("Digite a validade (dd/mm/aaaa): ");
-//					String dma = sc.nextLine();
-//					String dateSplit[] = dma.split("/");
-//					int dia = (Integer.parseInt(dateSplit[0]));
-//					int mes = (Integer.parseInt(dateSplit[1]));
-//					int ano = (Integer.parseInt(dateSplit[2]));
-//					LocalDate localDate = LocalDate.of(ano, mes, dia);
-//					Date validade = Date.valueOf(localDate);
-//					item.setValidade(validade);
 					System.out.print("Digite o número do Setor: ");
 					item.setCodSetor(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a quantidade (digite 0 para nenhum): ");
@@ -88,7 +79,6 @@ public class TestItem {
 					System.out.print("Digite a quantidade (digite 0 para nenhum): ");
 					item.setQuantidade(Integer.parseInt(sc.nextLine()));
 
-					
 					break;
 
 				default:
@@ -122,8 +112,59 @@ public class TestItem {
 					}
 
 				}
+				
+				System.out.println("- fim -");
 
 			} else if (op == 3) {
+				
+				System.out.println("Lista de Itens por Descrição");
+				System.out.println();
+				
+				System.out.print("Digite a nome do produto: ");
+				String descricao = sc.nextLine();
+				
+				try (Connection conn = ConnectionManager.createConnection()) {
+					ItemGeralDAO igDao = new ItemGeralDAO(conn);
+					listItem = igDao.listByDescricao(descricao);
+					
+					if (listItem.isEmpty()) {
+						System.out.println("Nenhum item cadastrado.");
+						System.out.println();
+					} else {
+						
+						for (Item i : listItem) {
+							System.out.println(i);
+						}
+						
+					}
+				}
+				
+				System.out.println("- fim -");
+				
+			} else if (op == 4) {
+				
+				System.out.println("Lista de Itens sem Estoque");
+				System.out.println();
+				
+				try (Connection conn = ConnectionManager.createConnection()) {
+					ItemGeralDAO igDao = new ItemGeralDAO(conn);
+					listItem = igDao.listByEstoque();
+					
+					if (listItem.isEmpty()) {
+						System.out.println("Nenhum item sem estoque.");
+						System.out.println();
+					} else {
+						
+						for (Item i : listItem) {
+							System.out.println(i);
+						}
+						
+					}		
+				}
+				
+				System.out.println("- fim -");
+				
+			} else if (op == 10) {
 
 //				System.out.print("Digite o número do caixa que deseja alterar: ");
 //				caixa.setNumero(Integer.parseInt(sc.nextLine()));
