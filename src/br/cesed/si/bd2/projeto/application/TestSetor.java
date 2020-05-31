@@ -1,5 +1,6 @@
 package br.cesed.si.bd2.projeto.application;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ import br.cesed.si.bd2.projeto.models.Setor;
 
 public class TestSetor {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		dadosSetor();
 	}
 
-	private static void dadosSetor() throws SQLException {
+	private static void dadosSetor() throws SQLException, IOException {
 		Scanner sc = new Scanner(System.in);
 		Setor setor = new Setor();
 		List<Setor> listaSetores = new ArrayList<Setor>();
@@ -46,7 +47,7 @@ public class TestSetor {
 				System.out.print("Digite o nome do setor: ");
 				setor.setNome(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					SetorDAO sDao = new SetorDAO(conn);
 					sDao.save(setor);
 
@@ -57,7 +58,7 @@ public class TestSetor {
 				System.out.println("Lista de Setores");
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					SetorDAO sDao = new SetorDAO(conn);
 					listaSetores = sDao.listAll();
 
@@ -79,7 +80,7 @@ public class TestSetor {
 				String nome = sc.nextLine();
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					SetorDAO sDao = new SetorDAO(conn);
 					listaSetores = sDao.listByName(nome);
 
@@ -101,7 +102,7 @@ public class TestSetor {
 				System.out.print("Digite um novo nome para o setor: ");
 				setor.setNome(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					SetorDAO sDao = new SetorDAO(conn);
 					sDao.updateSetor(setor);
 

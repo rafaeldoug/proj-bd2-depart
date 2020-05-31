@@ -1,5 +1,6 @@
 package br.cesed.si.bd2.projeto.application;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ import br.cesed.si.bd2.projeto.models.Item;
 
 public class TestItem {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		dadosItem();
 	}
 
-	private static void dadosItem() throws SQLException {
+	private static void dadosItem() throws SQLException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		Item item = new Item();
@@ -85,7 +86,7 @@ public class TestItem {
 					break;
 				}
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					ItemGeralDAO igDao = new ItemGeralDAO(conn);
 					igDao.save(item);
 
@@ -96,7 +97,7 @@ public class TestItem {
 				System.out.println("Lista de Itens");
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					ItemGeralDAO igDao = new ItemGeralDAO(conn);
 					listItem = igDao.listAll();
 
@@ -123,7 +124,7 @@ public class TestItem {
 				System.out.print("Digite a nome do produto: ");
 				String descricao = sc.nextLine();
 				
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					ItemGeralDAO igDao = new ItemGeralDAO(conn);
 					listItem = igDao.listByDescricao(descricao);
 					
@@ -146,7 +147,7 @@ public class TestItem {
 				System.out.println("Lista de Itens sem Estoque");
 				System.out.println();
 				
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					ItemGeralDAO igDao = new ItemGeralDAO(conn);
 					listItem = igDao.listByEstoque();
 					

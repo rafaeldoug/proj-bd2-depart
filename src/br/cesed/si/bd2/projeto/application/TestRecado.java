@@ -1,5 +1,6 @@
 package br.cesed.si.bd2.projeto.application;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ import br.cesed.si.bd2.projeto.models.Recado;
 
 public class TestRecado {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		dadosRecado();
 	}
 
-	private static void dadosRecado() throws SQLException {
+	private static void dadosRecado() throws SQLException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		Recado recado = new Recado();
@@ -46,7 +47,7 @@ public class TestRecado {
 				System.out.print("Digite a mensagem: ");
 				recado.setMensagem(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					RecadoDAO rDao = new RecadoDAO(conn);
 					rDao.save(recado);
 
@@ -57,7 +58,7 @@ public class TestRecado {
 				System.out.println("Lista de Recados");
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					RecadoDAO rDao = new RecadoDAO(conn);
 					listRecados = rDao.listAll();
 
@@ -80,7 +81,7 @@ public class TestRecado {
 				System.out.print("Digite a mensagem: ");
 				recado.setMensagem(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					RecadoDAO rDao = new RecadoDAO(conn);
 					rDao.update(recado);
 
@@ -90,7 +91,7 @@ public class TestRecado {
 				System.out.print("Digite o número da Mensagem: ");
 				recado.setIndice(Integer.parseInt(sc.nextLine()));
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					RecadoDAO rDao = new RecadoDAO(conn);
 					rDao.delete(recado.getIndice());
 
@@ -102,7 +103,7 @@ public class TestRecado {
 				char opDel = sc.nextLine().charAt(0);
 
 				if (opDel == 's' || opDel == 'S') {
-					try (Connection conn = ConnectionManager.createConnection()) {
+					try (Connection conn = ConnectionManager.getConnection()) {
 						RecadoDAO rDao = new RecadoDAO(conn);
 						rDao.deleteAll();
 					}

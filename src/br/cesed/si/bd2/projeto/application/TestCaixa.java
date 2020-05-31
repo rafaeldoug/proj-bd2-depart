@@ -1,5 +1,6 @@
 package br.cesed.si.bd2.projeto.application;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,11 +14,11 @@ import br.cesed.si.bd2.projeto.models.Caixa;
 
 public class TestCaixa {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		dadosCaixa();
 	}
 
-	private static void dadosCaixa() throws SQLException {
+	private static void dadosCaixa() throws SQLException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		Caixa caixa = new Caixa();
@@ -50,7 +51,7 @@ public class TestCaixa {
 				TipoCaixa tipo = TipoCaixa.valueOf(t);
 				caixa.setTipo(tipo);
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					CaixaDAO cDao = new CaixaDAO(conn);
 					cDao.save(caixa);
 
@@ -61,7 +62,7 @@ public class TestCaixa {
 				System.out.println("Lista de Caixas");
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					CaixaDAO cDao = new CaixaDAO(conn);
 					listCaixa = cDao.listAll();
 
@@ -87,7 +88,7 @@ public class TestCaixa {
 				TipoCaixa tipo = TipoCaixa.valueOf(t);
 				caixa.setTipo(tipo);
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					CaixaDAO cDao = new CaixaDAO(conn);
 					cDao.updateCaixa(caixa);
 				}
@@ -97,7 +98,7 @@ public class TestCaixa {
 				System.out.print("Digite o número do caixa: ");
 				int numero = Integer.parseInt(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					CaixaDAO cDao = new CaixaDAO(conn);
 					cDao.delete(numero);
 				}

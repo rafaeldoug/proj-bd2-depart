@@ -1,5 +1,6 @@
 package br.cesed.si.bd2.projeto.application;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -14,12 +15,12 @@ import br.cesed.si.bd2.projeto.models.Funcionario;
 
 public class TestFuncionario {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		dadosFuncionarios();
 
 	}
 
-	public static void dadosFuncionarios() throws SQLException {
+	public static void dadosFuncionarios() throws SQLException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		Funcionario func = new Funcionario();
@@ -68,7 +69,7 @@ public class TestFuncionario {
 				Date dateConvert = Date.valueOf(localDate);
 				func.setDtAdmissao(dateConvert);
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.save(func);
 				}
@@ -78,7 +79,7 @@ public class TestFuncionario {
 				System.out.println("Lista de Funcionários");
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
 					listaFuncionarios = funcDao.listAll();
 
@@ -98,8 +99,8 @@ public class TestFuncionario {
 				System.out.print("Digite o nome do funcionário que deseja buscar: ");
 				String nome = sc.nextLine();
 				System.out.println();
-				
-				try (Connection conn = ConnectionManager.createConnection()) {
+
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
 					listaFuncionarios = funcDao.listByName(nome);
 
@@ -120,7 +121,7 @@ public class TestFuncionario {
 				String funcao = sc.nextLine();
 				System.out.println();
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDao = new FuncionarioDAO(conn);
 					listaFuncionarios = funcDao.listByFuncao(funcao);
 
@@ -138,7 +139,7 @@ public class TestFuncionario {
 
 			} else if (op == 5) {
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.classificaFuncionario();
 				}
@@ -150,7 +151,7 @@ public class TestFuncionario {
 				System.out.print("Digite o salário do funcionário: ");
 				func.setSalario(Double.parseDouble(sc.nextLine()));
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.updateSalario(func);
 				}
@@ -174,7 +175,7 @@ public class TestFuncionario {
 				System.out.print("Digite o motivo da demissão: ");
 				func.setMotivo(sc.nextLine());
 
-				try (Connection conn = ConnectionManager.createConnection()) {
+				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.saveDemissao(func);
 				}

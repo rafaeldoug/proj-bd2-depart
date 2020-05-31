@@ -1,19 +1,34 @@
 package br.cesed.si.bd2.projeto;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionManager {
-	
-	private static final String URL = "jdbc:postgresql://localhost:5432/loja_departamento?userTimezone=true&serverTimezone=UTC";
-	private static final String USER = "postgres";
-	private static final String PASS = "1234";
 
-	public static Connection createConnection() throws SQLException {
+	public static Connection getConnection() throws IOException, SQLException {
 
-		return DriverManager.getConnection(URL, USER, PASS);
+		Properties prop = getProp();
+		String url = prop.getProperty("url");
+		String user = prop.getProperty("user");
+		String pass = prop.getProperty("pass");
+
+		Connection conn = DriverManager.getConnection(url, user, pass);
+
+		System.out.println("Conectado ao banco de dados.");
+		return conn;
+
 	}
 
+	private static Properties getProp() throws IOException {
+		Properties props = new Properties();
+		FileInputStream file = new FileInputStream("./properties/connection.properties");
+		props.load(file);
+		return props;
+
+	}
 
 }
