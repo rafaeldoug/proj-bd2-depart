@@ -2,5 +2,7 @@
 
 # proj-bd2-depart
 
-Projeto da disciplna de Banco de Dados 2
+Projeto da disciplina de Banco de Dados 2
 [PL/pgSQL | JDBC]
+
+Neste projeto são implementados funções básicas apenas para demonstração da manipulação do banco de dados com JDBC.
