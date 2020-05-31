@@ -16,10 +16,11 @@ public class ConnectionManager {
 		String user = prop.getProperty("user");
 		String pass = prop.getProperty("pass");
 
-		Connection conn = DriverManager.getConnection(url, user, pass);
-
-		System.out.println("Conectado ao banco de dados.");
-		return conn;
+		try {
+			return DriverManager.getConnection(url, user, pass);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 

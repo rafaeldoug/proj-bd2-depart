@@ -17,7 +17,6 @@ public class TestFuncionario {
 
 	public static void main(String[] args) throws SQLException, IOException {
 		dadosFuncionarios();
-
 	}
 
 	public static void dadosFuncionarios() throws SQLException, IOException {
