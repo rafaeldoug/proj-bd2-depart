@@ -90,7 +90,7 @@ public class TestCaixa {
 
 				try (Connection conn = ConnectionManager.getConnection()) {
 					CaixaDAO cDao = new CaixaDAO(conn);
-					cDao.updateCaixa(caixa);
+					cDao.update(caixa);
 				}
 
 			} else if (op == 4) {

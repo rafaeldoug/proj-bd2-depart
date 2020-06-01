@@ -56,7 +56,7 @@ public class CaixaDAO {
 		return listCaixas;
 	}
 
-	public void updateCaixa(Caixa caixa) throws SQLException {
+	public void update(Caixa caixa) throws SQLException {
 
 		String sql = "UPDATE caixa SET tipo = ? WHERE numero = ?";
 

@@ -1,16 +1,12 @@
 package br.cesed.si.bd2.projeto.models;
 
-import java.sql.Date;
-
-public class Item {
+public class ItemEletro {
 
 	private Integer codBarra;
 
 	private String nome;
 
 	private Double preco;
-
-	private Date validade;
 
 	private Integer codSetor;
 
@@ -44,14 +40,6 @@ public class Item {
 		this.preco = preco;
 	}
 
-	public Date getValidade() {
-		return validade;
-	}
-
-	public void setValidade(Date validade) {
-		this.validade = validade;
-	}
-
 	public Integer getCodSetor() {
 		return codSetor;
 	}
@@ -82,16 +70,6 @@ public class Item {
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	@Override
-	public String toString() {
-		return "Cód. de Barras " + codBarra + "\nDescricao: " + nome + " | Preço R$" + String.format("%.2f", preco)
-				+ "\n" + "Setor " + codSetor + " | Quantidade disponível: " + quantidade + "\n" + "Validade "
-				+ (validade != null ? validade : "N/A") + " | Garantia Loja "
-				+ (garantiaLoja == 0 ? "N/A" : garantiaLoja) + " | Garantia Fabricante "
-				+ (garantiaFabricante == 0 ? "N/A" : garantiaFabricante) + "\n";
-
 	}
 
 }

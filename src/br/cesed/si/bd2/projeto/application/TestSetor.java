@@ -104,7 +104,7 @@ public class TestSetor {
 
 				try (Connection conn = ConnectionManager.getConnection()) {
 					SetorDAO sDao = new SetorDAO(conn);
-					sDao.updateSetor(setor);
+					sDao.update(setor);
 
 				}
 			}

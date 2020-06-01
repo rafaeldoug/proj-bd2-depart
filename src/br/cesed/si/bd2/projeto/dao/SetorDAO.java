@@ -81,7 +81,7 @@ public class SetorDAO {
 		
 	}
 
-	public void updateSetor(Setor setor) throws SQLException {
+	public void update(Setor setor) throws SQLException {
 		
 		String sql = "UPDATE setor SET nome = ? WHERE codigo = ?";
 		
