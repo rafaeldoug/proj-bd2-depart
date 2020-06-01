@@ -72,4 +72,12 @@ public class ItemEletro {
 		this.quantidade = quantidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Cód. de Barras " + codBarra + "\nDescricao: " + nome + " | Preço R$" + String.format("%.2f", preco)
+				+ "\n" + "Setor " + codSetor + " | Quantidade disponível: " + quantidade + "\n" + "Garantia Loja "
+				+ (garantiaLoja != null ? garantiaLoja : "N/A") + " ano(s)" + " | Garantia Fabricante "
+				+ (garantiaFabricante != null ? garantiaFabricante : "N/A") + " ano(s)";
+
+	}
 }

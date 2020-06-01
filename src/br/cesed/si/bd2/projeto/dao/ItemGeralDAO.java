@@ -39,7 +39,7 @@ public class ItemGeralDAO {
 
 		List<ItemGeral> listItems = new ArrayList<>();
 
-		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item";
+		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item WHERE cod_setor > 2;";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
@@ -67,7 +67,7 @@ public class ItemGeralDAO {
 		List<ItemGeral> listItems = new ArrayList<>();
 
 		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item WHERE nome LIKE '" + descricao
-				+ "%'";
+				+ "%' AND cod_setor > 2";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
@@ -96,7 +96,7 @@ public class ItemGeralDAO {
 		List<ItemGeral> listItems = new ArrayList<>();
 
 		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item i, setor s WHERE i.cod_setor =  s.codigo AND s.nome LIKE '"
-				+ nomeSetor + "%'";
+				+ nomeSetor + "%' AND cod_setor > 2";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
@@ -124,7 +124,7 @@ public class ItemGeralDAO {
 
 		List<ItemGeral> listItems = new ArrayList<>();
 
-		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item WHERE qtd = 0";
+		String sql = "SELECT cod_barra, nome, preco, validade, cod_setor, qtd FROM item WHERE qtd = 0 ANS cod_setor > 2";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();

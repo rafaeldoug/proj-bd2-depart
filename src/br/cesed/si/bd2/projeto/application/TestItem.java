@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.cesed.si.bd2.projeto.ConnectionManager;
+import br.cesed.si.bd2.projeto.dao.ItemEletroDAO;
 import br.cesed.si.bd2.projeto.dao.ItemGeralDAO;
 import br.cesed.si.bd2.projeto.models.ItemEletro;
 import br.cesed.si.bd2.projeto.models.ItemGeral;
@@ -35,7 +36,7 @@ public class TestItem {
 
 		do {
 
-			System.out.println("Seleciona o tipo de Item:");
+			System.out.println("Selecione o tipo de Item:");
 			System.out.println("(1) - Geral");
 			System.out.println("(2) - EE/ED");
 			System.out.println("(0) - SAIR ");
@@ -43,6 +44,8 @@ public class TestItem {
 			op = Integer.parseInt(sc.nextLine());
 
 			switch (op) {
+
+			// OPÇÕES PARA ITENS GERAIS
 			case 1:
 
 				System.out.println();
@@ -135,7 +138,7 @@ public class TestItem {
 					System.out.println("Lista de Itens por Descrição");
 					System.out.println();
 
-					System.out.print("Digite a nome do produto: ");
+					System.out.print("Digite o nome do produto: ");
 					String descricao = sc.nextLine();
 
 					try (Connection conn = ConnectionManager.getConnection()) {
@@ -237,6 +240,7 @@ public class TestItem {
 
 				break;
 
+			// OPÇÕES PARA ITENS ELETRO
 			case 2:
 
 				System.out.println();
@@ -245,7 +249,7 @@ public class TestItem {
 				System.out.println("# (2) - Listar Itens #");
 				System.out.println("# (3) - Listar Itens por Descrição #");
 				System.out.println("# (4) - Listar Itens sem Estoque #");
-				System.out.println("# (5) - Alterar Item (com validade) #");
+				System.out.println("# (5) - Alterar Item #");
 				System.out.println("# (6) - Alterar Estoque do Item #");
 
 				System.out.print("\nDigite a opção desejada: ");
@@ -254,65 +258,40 @@ public class TestItem {
 				if (op == 1) {
 
 					System.out.print("Digite o nome do Item: ");
-					itemG.setNome(sc.nextLine());
+					itemE.setNome(sc.nextLine());
 					System.out.print("Digite o código de barras: ");
-					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
+					itemE.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite o preço: ");
-					itemG.setPreco(Double.parseDouble(sc.nextLine()));
-					System.out.print("Digite o número do Setor: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite a validade (dd/mm/aaaa): ");
-					String dma = sc.nextLine();
-					String dateSplit[] = dma.split("/");
-					int dia = (Integer.parseInt(dateSplit[0]));
-					int mes = (Integer.parseInt(dateSplit[1]));
-					int ano = (Integer.parseInt(dateSplit[2]));
-					LocalDate localDate = LocalDate.of(ano, mes, dia);
-					Date dateConvert = Date.valueOf(localDate);
-					itemG.setValidade(dateConvert);
+					itemE.setPreco(Double.parseDouble(sc.nextLine()));
+					System.out.print("Digite o número do Setor (1 - EE | 2 - ED: ");
+					itemE.setCodSetor(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a garantia de loja (0 a 3 anos): ");
+					itemE.setGarantiaLoja(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a garantia de fábrica (0 a 3 anos): ");
+					itemE.setGarantiaFabricante(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a quantidade (digite 0 para nenhum): ");
-					itemG.setQuantidade(Integer.parseInt(sc.nextLine()));
+					itemE.setQuantidade(Integer.parseInt(sc.nextLine()));
 
 					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						igDao.save(itemG);
-
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						ieDao.save(itemE);
 					}
 
 				} else if (op == 2) {
-
-					System.out.print("Digite o nome do Item: ");
-					itemG.setNome(sc.nextLine());
-					System.out.print("Digite o código de barras: ");
-					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite o preço: ");
-					itemG.setPreco(Double.parseDouble(sc.nextLine()));
-					System.out.print("Digite o número do Setor: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite a quantidade (digite 0 para nenhum): ");
-					itemG.setQuantidade(Integer.parseInt(sc.nextLine()));
-
-					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						igDao.save(itemG);
-
-					}
-
-				} else if (op == 3) {
 
 					System.out.println("Lista de Itens");
 					System.out.println();
 
 					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						listGeral = igDao.listAll();
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						listEletro = ieDao.listAll();
 
-						if (listGeral.isEmpty()) {
+						if (listEletro.isEmpty()) {
 							System.out.println("Nenhum item cadastrado.");
 							System.out.println();
 						} else {
 
-							for (ItemGeral i : listGeral) {
+							for (ItemEletro i : listEletro) {
 								System.out.println(i);
 							}
 
@@ -322,7 +301,7 @@ public class TestItem {
 
 					System.out.println("- fim -");
 
-				} else if (op == 4) {
+				} else if (op == 3) {
 
 					System.out.println("Lista de Itens por Descrição");
 					System.out.println();
@@ -331,15 +310,38 @@ public class TestItem {
 					String descricao = sc.nextLine();
 
 					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						listGeral = igDao.listByDescricao(descricao);
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						listEletro = ieDao.listByDescricao(descricao);
 
-						if (listGeral.isEmpty()) {
+						if (listEletro.isEmpty()) {
 							System.out.println("Nenhum item cadastrado.");
 							System.out.println();
 						} else {
 
-							for (ItemGeral i : listGeral) {
+							for (ItemEletro i : listEletro) {
+								System.out.println(i);
+							}
+
+						}
+					}
+
+					System.out.println("- fim -");
+
+				} else if (op == 4) {
+
+					System.out.println("Lista de Itens sem Estoque");
+					System.out.println();
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						listEletro = ieDao.listByEstoque();
+
+						if (listEletro.isEmpty()) {
+							System.out.println("Nenhum item sem estoque.");
+							System.out.println();
+						} else {
+
+							for (ItemEletro i : listEletro) {
 								System.out.println(i);
 							}
 
@@ -350,83 +352,33 @@ public class TestItem {
 
 				} else if (op == 5) {
 
-					System.out.println("Lista de Itens sem Estoque");
-					System.out.println();
+					System.out.print("Digite o código de barras do item que deseja alterar: ");
+					itemE.setCodBarra(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite o nome do Item: ");
+					itemE.setNome(sc.nextLine());
+					System.out.print("Digite o preço: ");
+					itemE.setPreco(Double.parseDouble(sc.nextLine()));
+					System.out.print("Digite o número do Setor: ");
+					itemE.setCodSetor(Integer.parseInt(sc.nextLine()));
 
 					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						listGeral = igDao.listByEstoque();
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						ieDao.update(itemE);
 
-						if (listGeral.isEmpty()) {
-							System.out.println("Nenhum item sem estoque.");
-							System.out.println();
-						} else {
-
-							for (ItemGeral i : listGeral) {
-								System.out.println(i);
-							}
-
-						}
 					}
-
-					System.out.println("- fim -");
 
 				} else if (op == 6) {
 
 					System.out.print("Digite o código de barras do item que deseja alterar: ");
-					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite o nome do Item: ");
-					itemG.setNome(sc.nextLine());
-					System.out.print("Digite o preço: ");
-					itemG.setPreco(Double.parseDouble(sc.nextLine()));
-					System.out.print("Digite o número do Setor: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
-
-					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						igDao.update(itemG);
-
-					}
-				} else if (op == 7) {
-
-					System.out.print("Digite o código de barras do item que deseja alterar: ");
-					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite o nome do Item: ");
-					itemG.setNome(sc.nextLine());
-					System.out.print("Digite o preço: ");
-					itemG.setPreco(Double.parseDouble(sc.nextLine()));
-					System.out.print("Digite o número do Setor: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
-					System.out.print("Digite a validade (dd/mm/aaaa): ");
-					String dma = sc.nextLine();
-					String dateSplit[] = dma.split("/");
-					int dia = (Integer.parseInt(dateSplit[0]));
-					int mes = (Integer.parseInt(dateSplit[1]));
-					int ano = (Integer.parseInt(dateSplit[2]));
-					LocalDate localDate = LocalDate.of(ano, mes, dia);
-					Date dateConvert = Date.valueOf(localDate);
-					itemG.setValidade(dateConvert);
-
-					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						igDao.updateComValidade(itemG);
-
-					}
-
-				} else if (op == 8) {
-
-					System.out.print("Digite o código de barras do item que deseja alterar: ");
-					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
+					itemE.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a quantidade do Item: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
+					itemE.setCodSetor(Integer.parseInt(sc.nextLine()));
 
 					try (Connection conn = ConnectionManager.getConnection()) {
-						ItemGeralDAO igDao = new ItemGeralDAO(conn);
-						igDao.updateQuantidade(itemG);
+						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
+						ieDao.updateQuantidade(itemE);
 					}
-
 				}
-
 				break;
 
 			default:
@@ -436,6 +388,9 @@ public class TestItem {
 		} while (op != 0);
 
 		itemG = new ItemGeral();
+		itemE = new ItemEletro();
+		listGeral.clear();
+		listEletro.clear();
 
 		sc.close();
 	}
