@@ -24,7 +24,7 @@ public class Recado {
 
 	@Override
 	public String toString() {
-		return "Mensagem " + indice + "(" + mensagem + ")";
+		return "Mensagem " + indice + " (" + mensagem + ")";
 	}
 
 }
