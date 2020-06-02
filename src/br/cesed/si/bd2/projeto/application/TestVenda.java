@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.cesed.si.bd2.projeto.ConnectionManager;
+import br.cesed.si.bd2.projeto.dao.VendaEletroDAO;
 import br.cesed.si.bd2.projeto.dao.VendaGeralDAO;
+import br.cesed.si.bd2.projeto.models.VendaEletro;
 import br.cesed.si.bd2.projeto.models.VendaGeral;
 
 public class TestVenda {
@@ -23,7 +25,9 @@ public class TestVenda {
 
 		Scanner sc = new Scanner(System.in);
 		VendaGeral vg = new VendaGeral();
+		VendaEletro ve = new VendaEletro();
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
+		List<VendaEletro> listVendaEletro = new ArrayList<>();
 
 		int op = 0;
 
@@ -52,6 +56,7 @@ public class TestVenda {
 				System.out.println("# (4) - Listar Vendas por Funcionário #");
 				System.out.println("# (5) - Alterar Venda #");
 				System.out.println("# (6) - Remover Venda #");
+				System.out.println("# (9) - Voltar #");
 
 				System.out.print("\nDigite a opção desejada: ");
 				op = Integer.parseInt(sc.nextLine());
@@ -222,11 +227,51 @@ public class TestVenda {
 						vgDao.delete(nf, codItem);
 					}
 
+				} else if (op == 9) {
+					continue;
 				}
 
 				break;
+				
+				
 
+			// OPÇÕES PARA VENDAS ELETRO
 			case 2:
+
+				System.out.println();
+				System.out.println("## Escolha uma das opções abaixo ##");
+				System.out.println("# (1) - Inserir Venda #");
+				System.out.println("# (2) - Listar Vendas #");
+				System.out.println("# (3) - Listar Vendas por período #");
+				System.out.println("# (4) - Listar Vendas por Funcionário #");
+				System.out.println("# (5) - Alterar Venda #");
+				System.out.println("# (6) - Remover Venda #");
+
+				System.out.print("\nDigite a opção desejada: ");
+				op = Integer.parseInt(sc.nextLine());
+
+				if (op == 1) {
+
+					System.out.print("Digite o número da NF: ");
+					ve.setNf(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite o cód. de barras do item: ");
+					ve.setCodItem(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a quantidade do item: ");
+					ve.setQtdItem(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a matrícula do vendedor: ");
+					ve.setMatFunc(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite o código do caixa: ");
+					ve.setCodCaixa(Integer.parseInt(sc.nextLine()));
+
+					LocalDate localDate = LocalDate.now();
+					Date dateConvert = Date.valueOf(localDate);
+					ve.setDtVenda(dateConvert);
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						veDao.save(ve);
+					}
+				}
 
 				break;
 

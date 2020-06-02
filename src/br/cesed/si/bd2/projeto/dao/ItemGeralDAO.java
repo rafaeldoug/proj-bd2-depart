@@ -193,7 +193,7 @@ public class ItemGeralDAO {
 
 			pstm.execute();
 
-			System.out.println("\nQuantidade do Item Geral alterado com sucesso.");
+			System.out.println("\nQuantidade do Item Geral alterado com sucesso.\n");
 
 		}
 	}

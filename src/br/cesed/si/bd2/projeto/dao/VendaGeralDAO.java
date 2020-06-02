@@ -41,7 +41,7 @@ public class VendaGeralDAO {
 
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
 
-		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda";
+		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda , item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'EE' AND s.nome != 'ED'";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();

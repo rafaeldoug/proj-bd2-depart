@@ -229,7 +229,7 @@ public class TestItem {
 					System.out.print("Digite o código de barras do item que deseja alterar: ");
 					itemG.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a quantidade do Item: ");
-					itemG.setCodSetor(Integer.parseInt(sc.nextLine()));
+					itemG.setQuantidade(Integer.parseInt(sc.nextLine()));
 
 					try (Connection conn = ConnectionManager.getConnection()) {
 						ItemGeralDAO igDao = new ItemGeralDAO(conn);
@@ -263,7 +263,7 @@ public class TestItem {
 					itemE.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite o preço: ");
 					itemE.setPreco(Double.parseDouble(sc.nextLine()));
-					System.out.print("Digite o número do Setor (1 - EE | 2 - ED: ");
+					System.out.print("Digite o número do Setor (1 - ED | 2 - EE: ");
 					itemE.setCodSetor(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a garantia de loja (0 a 3 anos): ");
 					itemE.setGarantiaLoja(Integer.parseInt(sc.nextLine()));
@@ -372,7 +372,7 @@ public class TestItem {
 					System.out.print("Digite o código de barras do item que deseja alterar: ");
 					itemE.setCodBarra(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite a quantidade do Item: ");
-					itemE.setCodSetor(Integer.parseInt(sc.nextLine()));
+					itemE.setQuantidade(Integer.parseInt(sc.nextLine()));
 
 					try (Connection conn = ConnectionManager.getConnection()) {
 						ItemEletroDAO ieDao = new ItemEletroDAO(conn);
