@@ -44,7 +44,7 @@ public class FuncSalPeriod {
 
 	@Override
 	public String toString() {
-		return "Nome: " + nome + " | Matricula: " + matricula + " | Funcao:" + funcao + " | Salario Total R$"
+		return "Nome: " + nome + " | Matricula: " + matricula + " | Funcao: " + funcao + " | Salario Total R$"
 				+ String.format("%.2f", salario);
 	}
 

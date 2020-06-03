@@ -385,12 +385,13 @@ public class TestItem {
 				break;
 			}
 
+			itemG = new ItemGeral();
+			itemE = new ItemEletro();
+			listGeral.clear();
+			listEletro.clear();
+			
 		} while (op != 0);
 
-		itemG = new ItemGeral();
-		itemE = new ItemEletro();
-		listGeral.clear();
-		listEletro.clear();
 
 		sc.close();
 	}

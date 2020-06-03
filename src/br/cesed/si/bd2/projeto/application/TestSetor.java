@@ -109,9 +109,11 @@ public class TestSetor {
 				}
 			}
 
+			setor = new Setor();
+			listaSetores.clear();
+			
 		} while (op != 0);
 
-		setor = new Setor();
 
 		sc.close();
 	}

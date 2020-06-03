@@ -141,7 +141,7 @@ public class TestFuncionario {
 				}
 
 			} else if (op == 5) {
-
+				
 				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.classificaFuncionario();
@@ -216,6 +216,8 @@ public class TestFuncionario {
 			}
 
 			func = new Funcionario();
+			listaFuncionarios.clear();
+			listSal.clear();
 
 		} while (op != 0);
 

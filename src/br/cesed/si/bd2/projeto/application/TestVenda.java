@@ -451,10 +451,14 @@ public class TestVenda {
 				break;
 
 			}
+			
+			vg = new VendaGeral();
+			listVendaGeral.clear();
+			ve = new VendaEletro();
+			listVendaEletro.clear();
+			
 		} while (op != 0);
 
-		vg = new VendaGeral();
-		listVendaGeral.clear();
 
 		sc.close();
 	}

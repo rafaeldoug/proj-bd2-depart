@@ -22,7 +22,7 @@ public class FuncSalPeriodDAO {
 
 		List<FuncSalPeriod> listSal = new ArrayList<>();
 
-		String sql = "SELECT calculaSalario2('" + inicio + "', '" + fim + "')";
+		String sql = "SELECT calculaSalario('" + inicio + "', '" + fim + "')";
 		String sql2 = "SELECT nome, matricula, funcao, salario_final FROM tmp_FuncSalPeriod";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {

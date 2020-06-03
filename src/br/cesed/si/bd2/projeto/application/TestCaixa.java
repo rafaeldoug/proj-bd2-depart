@@ -105,9 +105,11 @@ public class TestCaixa {
 
 			}
 
+			caixa = new Caixa();
+			listCaixa.clear();
+
 		} while (op != 0);
 
-		caixa = new Caixa();
 
 		sc.close();
 	}

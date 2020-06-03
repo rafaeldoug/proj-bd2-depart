@@ -110,10 +110,12 @@ public class TestRecado {
 				}
 
 			}
+			
+			recado = new Recado();
+			listRecados.clear();
 
 		} while (op != 0);
 
-		recado = new Recado();
 
 		sc.close();
 	}

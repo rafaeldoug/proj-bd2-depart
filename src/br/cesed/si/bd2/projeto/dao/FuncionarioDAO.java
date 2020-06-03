@@ -131,7 +131,7 @@ public class FuncionarioDAO {
 
 	public void classificaFuncionario() throws SQLException {
 
-		String sql = "SELECT classificaFunc();";
+		String sql = "SELECT classificaFunc()";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
