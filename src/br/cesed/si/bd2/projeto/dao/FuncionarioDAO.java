@@ -99,15 +99,15 @@ public class FuncionarioDAO {
 	}
 
 	public List<Funcionario> listByFuncao(String funcao) throws SQLException {
-		
+
 		List<Funcionario> listFunc = new ArrayList<>();
-		
+
 		String sql = "SELECT matricula, cpf, nome, salario, funcao, classificacao, dt_admissao, dt_demissao, motivo_demissao FROM funcionario WHERE funcao LIKE '"
 				+ funcao + "%'";
-		
+
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
-			
+
 			try (ResultSet rs = pstm.getResultSet()) {
 				while (rs.next()) {
 					Funcionario f = new Funcionario();
@@ -120,12 +120,12 @@ public class FuncionarioDAO {
 					f.setDtAdmissao(rs.getDate("dt_admissao"));
 					f.setDtDemissao(rs.getDate("dt_demissao"));
 					f.setMotivo(rs.getString("motivo_demissao"));
-					
+
 					listFunc.add(f);
 				}
 			}
 		}
-		
+
 		return listFunc;
 	}
 

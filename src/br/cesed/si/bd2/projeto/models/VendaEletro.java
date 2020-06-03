@@ -38,4 +38,11 @@ public class VendaEletro extends VendaGeral {
 		this.comissaoVend = comissaoVend;
 	}
 
+	@Override
+	public String toString() {
+		return "Nota Fiscal " + getNf() + " | Data da Venda: " + getDtVenda() + "\n" + "Cód. Item " + getCodItem()
+				+ " | Qtd " + getQtdItem() + " | Garantia Loja " + garantLoj + " | Garantia Fábrica " + garantFab + "\n"
+				+ "Mat. Vendedor " + getMatFunc() + " | Caixa nº " + getCodCaixa() + "\n";
+	}
+
 }

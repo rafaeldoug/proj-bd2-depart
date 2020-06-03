@@ -41,7 +41,7 @@ public class VendaGeralDAO {
 
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
 
-		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda , item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'EE' AND s.nome != 'ED'";
+		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda , item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'ED' AND s.nome != 'EE'";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
@@ -69,7 +69,7 @@ public class VendaGeralDAO {
 
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
 
-		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda WHERE dt_venda BETWEEN '"
+		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda , item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'ED' AND s.nome != 'EE' AND dt_venda BETWEEN '"
 				+ inicio + "' AND '" + fim + "'";
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
@@ -97,7 +97,7 @@ public class VendaGeralDAO {
 
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
 
-		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda WHERE mat_func = "
+		String sql = "SELECT nt_fiscal, cod_item, qtd_item, dt_venda, mat_func, cod_caixa FROM venda , item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'ED' AND s.nome != 'EE' AND mat_func = "
 				+ matricula;
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
@@ -125,8 +125,8 @@ public class VendaGeralDAO {
 
 		List<VendaGeral> listVendaGeral = new ArrayList<>();
 
-		String sql = "SELECT v.nt_fiscal, v.cod_item, v.qtd_item, v.dt_venda, v.mat_func, v.cod_caixa FROM venda v, funcionario f WHERE v.mat_func = f.matricula AND f.nome LIKE '"
-				+ nome + "%'";
+		String sql = "SELECT v.nt_fiscal, v.cod_item, v.qtd_item, v.dt_venda, v.mat_func, v.cod_caixa FROM venda v, funcionario f, item i, setor s WHERE cod_item = i.cod_barra AND i.cod_setor = s.codigo AND s.nome != 'ED' AND s.nome != 'EE' AND v.mat_func = f.matricula AND f.nome LIKE '"
+				+ nome + "%'"; 
 
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();

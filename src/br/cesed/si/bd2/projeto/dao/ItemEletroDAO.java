@@ -144,21 +144,19 @@ public class ItemEletroDAO {
 	}
 
 	public void updateQuantidade(ItemEletro item) throws SQLException {
-		
+
 		String sql = "UPDATE item SET qtd = ? WHERE cod_barra = ?";
-		
+
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.setInt(1, item.getQuantidade());
 			pstm.setInt(2, item.getCodBarra());
-			
-			pstm.execute();
-			
-			System.out.println("\nQuatidade do Item Eletro alterado com sucesso.");
-			
-		}
-		
-	}
-	
 
+			pstm.execute();
+
+			System.out.println("\nQuatidade do Item Eletro alterado com sucesso.");
+
+		}
+
+	}
 
 }

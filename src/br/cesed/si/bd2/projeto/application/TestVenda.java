@@ -154,6 +154,7 @@ public class TestVenda {
 
 						System.out.print("Digite a matrícula do vendedor: ");
 						int matricula = Integer.parseInt(sc.nextLine());
+						System.out.println();
 
 						try (Connection conn = ConnectionManager.getConnection()) {
 							VendaGeralDAO vgDao = new VendaGeralDAO(conn);
@@ -175,6 +176,7 @@ public class TestVenda {
 					case 2:
 						System.out.print("Digite a nome do vendedor: ");
 						String nome = sc.nextLine();
+						System.out.println();
 
 						try (Connection conn = ConnectionManager.getConnection()) {
 							VendaGeralDAO vgDao = new VendaGeralDAO(conn);
@@ -232,8 +234,6 @@ public class TestVenda {
 				}
 
 				break;
-				
-				
 
 			// OPÇÕES PARA VENDAS ELETRO
 			case 2:
@@ -244,8 +244,9 @@ public class TestVenda {
 				System.out.println("# (2) - Listar Vendas #");
 				System.out.println("# (3) - Listar Vendas por período #");
 				System.out.println("# (4) - Listar Vendas por Funcionário #");
-				System.out.println("# (5) - Alterar Venda #");
-				System.out.println("# (6) - Remover Venda #");
+				System.out.println("# (5) - Listar Vendas por Funcionário e Período #");
+				System.out.println("# (6) - Alterar Venda #");
+				System.out.println("# (7) - Remover Venda #");
 
 				System.out.print("\nDigite a opção desejada: ");
 				op = Integer.parseInt(sc.nextLine());
@@ -262,6 +263,15 @@ public class TestVenda {
 					ve.setMatFunc(Integer.parseInt(sc.nextLine()));
 					System.out.print("Digite o código do caixa: ");
 					ve.setCodCaixa(Integer.parseInt(sc.nextLine()));
+					System.out.println("Deseja mais garantia da loja? (s)sim (n)não");
+					String opG = sc.nextLine();
+					String garantia = "0";
+					if (opG.equalsIgnoreCase("s")) {
+						System.out.print("Escolha entre 1 a 3 anos: ");
+						garantia = sc.nextLine();
+					} else {
+						System.out.println("Garantia da loja não alterada.");
+					}
 
 					LocalDate localDate = LocalDate.now();
 					Date dateConvert = Date.valueOf(localDate);
@@ -270,7 +280,169 @@ public class TestVenda {
 					try (Connection conn = ConnectionManager.getConnection()) {
 						VendaEletroDAO veDao = new VendaEletroDAO(conn);
 						veDao.save(ve);
+						if (!garantia.equals("0")) {
+							veDao.updateGarantLoj(garantia, ve.getNf(), ve.getCodItem());
+						}
 					}
+
+				} else if (op == 2) {
+
+					System.out.println("Lista de Vendas Eletro");
+					System.out.println();
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						listVendaEletro = veDao.listAll();
+
+						if (listVendaEletro.isEmpty()) {
+							System.out.println("Nenhuma venda cadastrada.");
+							System.out.println();
+						} else {
+							for (VendaEletro v : listVendaEletro) {
+								System.out.println(v);
+							}
+						}
+					}
+
+				} else if (op == 3) {
+
+					System.out.println("Lista de Vendas Eletro Por Período");
+					System.out.println();
+
+					System.out.print("Digite a data de início (dd/mm/aaaa): ");
+					String dmaIni = sc.nextLine();
+					String dateSplitIni[] = dmaIni.split("/");
+					int diaIni = (Integer.parseInt(dateSplitIni[0]));
+					int mesIni = (Integer.parseInt(dateSplitIni[1]));
+					int anoIni = (Integer.parseInt(dateSplitIni[2]));
+					LocalDate localDateIni = LocalDate.of(anoIni, mesIni, diaIni);
+					Date dtInicio = Date.valueOf(localDateIni);
+					System.out.print("Digite a data de término (dd/mm/aaaa): ");
+					String dmaFim = sc.nextLine();
+					String dateSplitFim[] = dmaFim.split("/");
+					int diaFim = (Integer.parseInt(dateSplitFim[0]));
+					int mesFim = (Integer.parseInt(dateSplitFim[1]));
+					int anoFim = (Integer.parseInt(dateSplitFim[2]));
+					LocalDate localDateFim = LocalDate.of(anoFim, mesFim, diaFim);
+					Date dtFim = Date.valueOf(localDateFim);
+
+					System.out.println();
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						listVendaEletro = veDao.listByDate(dtInicio, dtFim);
+
+						if (listVendaEletro.isEmpty()) {
+							System.out.println("Nenhuma venda cadastrada para este período.");
+							System.out.println();
+						} else {
+							for (VendaEletro v : listVendaEletro) {
+								System.out.println(v);
+							}
+						}
+
+					}
+
+					System.out.println("- fim -");
+
+				} else if (op == 4) {
+
+					System.out.println("Lista de Vendas Eletro Por Funcionário");
+					System.out.println();
+
+					System.out.print("Digite a matrícula do vendedor: ");
+					int matricula = Integer.parseInt(sc.nextLine());
+					System.out.println();
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						listVendaEletro = veDao.listByMatricFunc(matricula);
+
+						if (listVendaEletro.isEmpty()) {
+							System.out.println("Nenhuma venda cadastrada para este período.");
+							System.out.println();
+						} else {
+							for (VendaEletro v : listVendaEletro) {
+								System.out.println(v);
+							}
+						}
+
+					}
+					System.out.println("- fim -");
+				} else if (op == 5) {
+
+					System.out.println("Lista de Vendas Eletro Por Funcionário e Período");
+					System.out.println();
+
+					System.out.print("Digite a data de início (dd/mm/aaaa): ");
+					String dmaIni = sc.nextLine();
+					String dateSplitIni[] = dmaIni.split("/");
+					int diaIni = (Integer.parseInt(dateSplitIni[0]));
+					int mesIni = (Integer.parseInt(dateSplitIni[1]));
+					int anoIni = (Integer.parseInt(dateSplitIni[2]));
+					LocalDate localDateIni = LocalDate.of(anoIni, mesIni, diaIni);
+					Date dtInicio = Date.valueOf(localDateIni);
+					System.out.print("Digite a data de término (dd/mm/aaaa): ");
+					String dmaFim = sc.nextLine();
+					String dateSplitFim[] = dmaFim.split("/");
+					int diaFim = (Integer.parseInt(dateSplitFim[0]));
+					int mesFim = (Integer.parseInt(dateSplitFim[1]));
+					int anoFim = (Integer.parseInt(dateSplitFim[2]));
+					LocalDate localDateFim = LocalDate.of(anoFim, mesFim, diaFim);
+					Date dtFim = Date.valueOf(localDateFim);
+					System.out.print("Digite a matrícula do vendedor: ");
+					int matricula = Integer.parseInt(sc.nextLine());
+					
+					System.out.println();
+
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						listVendaEletro = veDao.listByFuncAndDate(matricula, dtInicio, dtFim);
+
+						if (listVendaEletro.isEmpty()) {
+							System.out.println("Nenhuma venda cadastrada para este período.");
+							System.out.println();
+						} else {
+							for (VendaEletro v : listVendaEletro) {
+								System.out.println(v);
+							}
+						}
+
+					}
+					System.out.println("- fim -");
+
+				} else if (op == 6) {
+					
+					System.out.print("Digite o número da NF: ");
+					ve.setNf(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite o cód. de barras do item: ");
+					ve.setCodItem(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a quantidade do item: ");
+					ve.setQtdItem(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite a matrícula do vendedor: ");
+					ve.setMatFunc(Integer.parseInt(sc.nextLine()));
+					System.out.print("Digite o código do caixa: ");
+					ve.setCodCaixa(Integer.parseInt(sc.nextLine()));
+					
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						veDao.update(ve);
+					}
+					
+				} else if (op == 7) {
+					
+					System.out.print("Digite o número da NF: ");
+					int nf = Integer.parseInt(sc.nextLine());
+					System.out.print("Digite o cód. de barras do item: ");
+					int codItem = Integer.parseInt(sc.nextLine());
+					
+					try (Connection conn = ConnectionManager.getConnection()) {
+						VendaEletroDAO veDao = new VendaEletroDAO(conn);
+						veDao.delete(nf, codItem);
+					}
+					
+				} else if (op == 9) {
+					continue;
 				}
 
 				break;

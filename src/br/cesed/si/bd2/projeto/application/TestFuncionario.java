@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.cesed.si.bd2.projeto.ConnectionManager;
+import br.cesed.si.bd2.projeto.dao.FuncSalPeriodDAO;
 import br.cesed.si.bd2.projeto.dao.FuncionarioDAO;
+import br.cesed.si.bd2.projeto.models.FuncSalPeriod;
 import br.cesed.si.bd2.projeto.models.Funcionario;
 
 public class TestFuncionario {
@@ -23,7 +25,8 @@ public class TestFuncionario {
 
 		Scanner sc = new Scanner(System.in);
 		Funcionario func = new Funcionario();
-		List<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
+		List<Funcionario> listaFuncionarios = new ArrayList<>();
+		List<FuncSalPeriod> listSal = new ArrayList<>();
 
 		int op = 0;
 
@@ -41,6 +44,7 @@ public class TestFuncionario {
 			System.out.println("# (5) - Classificar Funcionários #");
 			System.out.println("# (6) - Alterar salário #");
 			System.out.println("# (7) - Alterar dados da Demissão #");
+			System.out.println("# (8) - Calcular Salário dos Funcionários #");
 			System.out.println("# (0) - SAIR #");
 
 			System.out.print("\nDigite a opção desejada: ");
@@ -177,6 +181,36 @@ public class TestFuncionario {
 				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncionarioDAO funcDAO = new FuncionarioDAO(conn);
 					funcDAO.saveDemissao(func);
+				}
+
+			} else if (op == 8) {
+
+				System.out.print("Digite a data de início (dd/mm/aaaa): ");
+				String dmaIni = sc.nextLine();
+				String dateSplitIni[] = dmaIni.split("/");
+				int diaIni = (Integer.parseInt(dateSplitIni[0]));
+				int mesIni = (Integer.parseInt(dateSplitIni[1]));
+				int anoIni = (Integer.parseInt(dateSplitIni[2]));
+				LocalDate localDateIni = LocalDate.of(anoIni, mesIni, diaIni);
+				Date dtInicio = Date.valueOf(localDateIni);
+				System.out.print("Digite a data de término (dd/mm/aaaa): ");
+				String dmaFim = sc.nextLine();
+				String dateSplitFim[] = dmaFim.split("/");
+				int diaFim = (Integer.parseInt(dateSplitFim[0]));
+				int mesFim = (Integer.parseInt(dateSplitFim[1]));
+				int anoFim = (Integer.parseInt(dateSplitFim[2]));
+				LocalDate localDateFim = LocalDate.of(anoFim, mesFim, diaFim);
+				Date dtFim = Date.valueOf(localDateFim);
+
+				System.out.println();
+
+				try (Connection conn = ConnectionManager.getConnection()) {
+					FuncSalPeriodDAO fspDao = new FuncSalPeriodDAO(conn);
+					listSal = fspDao.calcSalario(dtInicio, dtFim);
+
+					for (FuncSalPeriod fsp : listSal) {
+						System.out.println(fsp);
+					}
 				}
 
 			}
