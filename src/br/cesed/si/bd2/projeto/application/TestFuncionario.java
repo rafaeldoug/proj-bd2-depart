@@ -21,7 +21,7 @@ public class TestFuncionario {
 		dadosFuncionarios();
 	}
 
-	public static void dadosFuncionarios() throws SQLException, IOException {
+	private static void dadosFuncionarios() throws SQLException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		Funcionario func = new Funcionario();
