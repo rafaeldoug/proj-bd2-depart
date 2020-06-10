@@ -42,7 +42,8 @@ public class FuncionarioDAO {
 		List<Funcionario> listaFunc = new ArrayList<Funcionario>();
 
 		String sql = "SELECT matricula, cpf, nome, salario, funcao, classificacao, dt_admissao, dt_demissao, motivo_demissao FROM funcionario ORDER BY matricula;";
-
+		classificaFuncionario();
+		
 		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
 			pstm.execute();
 

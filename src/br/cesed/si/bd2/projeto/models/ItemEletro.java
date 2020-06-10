@@ -77,7 +77,7 @@ public class ItemEletro {
 		return "Cód. de Barras " + codBarra + "\nDescricao: " + nome + " | Preço R$" + String.format("%.2f", preco)
 				+ "\n" + "Setor " + codSetor + " | Quantidade disponível: " + quantidade + "\n" + "Garantia Loja "
 				+ (garantiaLoja != null ? garantiaLoja : "N/A") + " ano(s)" + " | Garantia Fabricante "
-				+ (garantiaFabricante != null ? garantiaFabricante : "N/A") + " ano(s)";
+				+ (garantiaFabricante != null ? garantiaFabricante : "N/A") + " ano(s)" + "\n";
 
 	}
 }

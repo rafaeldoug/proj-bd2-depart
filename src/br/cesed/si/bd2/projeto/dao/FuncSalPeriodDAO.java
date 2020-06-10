@@ -18,32 +18,29 @@ public class FuncSalPeriodDAO {
 		this.conn = connection;
 	}
 
-	public List<FuncSalPeriod> calcSalario(Date inicio, Date fim) throws SQLException {
+	public List<FuncSalPeriod> calcSalario(Date inicio) throws SQLException {
 
 		List<FuncSalPeriod> listSal = new ArrayList<>();
 
-		String sql = "SELECT calculaSalario('" + inicio + "', '" + fim + "')";
+		String sql = "SELECT calculaSalario('" + inicio + "')";
 		String sql2 = "SELECT nome, matricula, funcao, salario_final FROM tmp_FuncSalPeriod";
 
-		try (PreparedStatement pstm = conn.prepareStatement(sql)) {
+		try (PreparedStatement pstm = conn.prepareStatement(sql);
+				PreparedStatement pstm2 = conn.prepareStatement(sql2)) {
 			pstm.execute();
+			pstm2.execute();
 
-			try (PreparedStatement pstm2 = conn.prepareStatement(sql2)) {
-				pstm2.execute();
+			try (ResultSet rs = pstm2.getResultSet()) {
+				while (rs.next()) {
+					FuncSalPeriod fsp = new FuncSalPeriod();
+					fsp.setNome(rs.getString("nome"));
+					fsp.setMatricula(rs.getInt("matricula"));
+					fsp.setFuncao(rs.getString("funcao"));
+					fsp.setSalario(rs.getDouble("salario_final"));
 
-				try (ResultSet rs = pstm2.getResultSet()) {
-					while (rs.next()) {
-						FuncSalPeriod fsp = new FuncSalPeriod();
-						fsp.setNome(rs.getString("nome"));
-						fsp.setMatricula(rs.getInt("matricula"));
-						fsp.setFuncao(rs.getString("funcao"));
-						fsp.setSalario(rs.getDouble("salario_final"));
-
-						listSal.add(fsp);
-					}
+					listSal.add(fsp);
 				}
 			}
-
 		}
 
 		return listSal;

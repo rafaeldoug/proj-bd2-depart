@@ -49,6 +49,7 @@ public class TestVenda {
 			case 1:
 
 				System.out.println();
+				System.out.println("## VENDAS GERAIS ##");
 				System.out.println("## Escolha uma das opções abaixo ##");
 				System.out.println("# (1) - Inserir Venda #");
 				System.out.println("# (2) - Listar Vendas #");
@@ -239,6 +240,7 @@ public class TestVenda {
 			case 2:
 
 				System.out.println();
+				System.out.println("## VENDAS ELETRO ##");
 				System.out.println("## Escolha uma das opções abaixo ##");
 				System.out.println("# (1) - Inserir Venda #");
 				System.out.println("# (2) - Listar Vendas #");

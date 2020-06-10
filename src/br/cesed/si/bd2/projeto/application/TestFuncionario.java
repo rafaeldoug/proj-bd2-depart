@@ -185,28 +185,19 @@ public class TestFuncionario {
 
 			} else if (op == 8) {
 
-				System.out.print("Digite a data de início (dd/mm/aaaa): ");
+				System.out.print("Digite mês e ano (mm/aaaa): ");
 				String dmaIni = sc.nextLine();
 				String dateSplitIni[] = dmaIni.split("/");
-				int diaIni = (Integer.parseInt(dateSplitIni[0]));
-				int mesIni = (Integer.parseInt(dateSplitIni[1]));
-				int anoIni = (Integer.parseInt(dateSplitIni[2]));
-				LocalDate localDateIni = LocalDate.of(anoIni, mesIni, diaIni);
+				int mesIni = (Integer.parseInt(dateSplitIni[0]));
+				int anoIni = (Integer.parseInt(dateSplitIni[1]));
+				LocalDate localDateIni = LocalDate.of(anoIni, mesIni, 1);
 				Date dtInicio = Date.valueOf(localDateIni);
-				System.out.print("Digite a data de término (dd/mm/aaaa): ");
-				String dmaFim = sc.nextLine();
-				String dateSplitFim[] = dmaFim.split("/");
-				int diaFim = (Integer.parseInt(dateSplitFim[0]));
-				int mesFim = (Integer.parseInt(dateSplitFim[1]));
-				int anoFim = (Integer.parseInt(dateSplitFim[2]));
-				LocalDate localDateFim = LocalDate.of(anoFim, mesFim, diaFim);
-				Date dtFim = Date.valueOf(localDateFim);
 
 				System.out.println();
 
 				try (Connection conn = ConnectionManager.getConnection()) {
 					FuncSalPeriodDAO fspDao = new FuncSalPeriodDAO(conn);
-					listSal = fspDao.calcSalario(dtInicio, dtFim);
+					listSal = fspDao.calcSalario(dtInicio);
 
 					for (FuncSalPeriod fsp : listSal) {
 						System.out.println(fsp);
